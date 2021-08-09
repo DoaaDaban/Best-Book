@@ -1,32 +1,60 @@
 # Project Name
 
 **Author**: Doa'a Daban - Khair shkokany
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.0 
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next. This repository has starter code to begin work on creating our own online bookshelf.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Go to the website https://can-of-books-doaadaban.netlify.app/
+
+Login to the profile.
+
+Display the bookshelf and the user data.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+ReactJs
+Auth0
+NodeJs
+dotenv
+Javascript
+Bootstrap React
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
-
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+Logistical
+
+What hours will you be available to communicate ? 
+Lab time hours, and after
+
+What platform will you use to communicate (ie. Slack, phone …)? 
+slack,zoom,discord
+
+How often will you take breaks?
+when we'll really need it
+
+What is your plan if you start to fall behind? 
+helping each other if someone is stuck.
 
 
-Name of feature: ________________________________
+Time estimation
 
-Estimate of time needed to complete: _____
+Name of feature: #1 Set up your repositories
 
-Start time: _____
+Estimate of time needed to complete: 2 hours
 
-Finish time: _____
+Start time: 1 pm
 
-Actual time needed to complete: _____
+Finish time: 3 pm
+
+Actual time needed to complete: 2 hours
+
+Name of feature: #2 Authentication
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 3 pm
+
+Finish time: 8 pm
+Actual time needed to complete: 5 hours
