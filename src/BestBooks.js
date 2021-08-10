@@ -46,8 +46,9 @@ class MyFavoriteBooks extends React.Component {
               <Carousel.Item interval={1000}>
                 <img
                   className="d-block w-100"
+                  style={{width:"350px", hight:"500px"}}
                   src={item.image}
-                  alt="First slide"
+                  alt="First slide"    
                 />
                 <Carousel.Caption>
                   <h3>{item.title}</h3>
