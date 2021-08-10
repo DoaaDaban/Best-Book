@@ -1,2 +1,4 @@
 REACT_APP_AUTH0_DOMAIN= dev-rg8ut0bf.us.auth0.com
 REACT_APP_AUTH0_CLIENT_ID= Czu9DqZjWeG5sepg2k2eTn07sgvERM3w
+
+REACT_APP_SERVER=http://localhost:3010
