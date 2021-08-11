@@ -5,6 +5,7 @@ import {Row,Col} from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 
 
+
 class AddBookModal extends Component {
 
     
@@ -12,12 +13,12 @@ class AddBookModal extends Component {
     render() {
         return (
 <>
-            <Modal show={this.props.show} onHide={this.props.hideModal}>
-        <Modal.Header closeButton>
+           <Modal show={this.props.show} onHide={this.props.hideModal}>
+        <Modal.Header>
           <Modal.Title>Adding New Book</Modal.Title>
         </Modal.Header>
         
-        <Form onSubmit={this.props.handleSubmitting}>
+        <Form onSubmit={(e)=>this.props.handleSubmitting(e)}>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Book Name</Form.Label>
@@ -50,11 +51,9 @@ class AddBookModal extends Component {
 
         <Modal.Footer>
           <Button variant="secondary" onClick={this.props.hideModal}>
-            Close
+            Add Book
           </Button>
-          <Button variant="primary" onClick={this.props.hideModal}>
-            ADD Book!
-          </Button>
+          
         </Modal.Footer>
       </Modal>
 
