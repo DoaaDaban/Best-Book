@@ -1,11 +1,14 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './BestBooks.css'
 // import Jumbotron from 'react-bootstrap/Jumbotron';
 import axios from 'axios';
 import './BestBooks.css';
 
 import { withAuth0 } from '@auth0/auth0-react';
 import Carousel from 'react-bootstrap/Carousel';
+import AddBookModal from './Component/AddBookModal';
+import Button from 'react-bootstrap/Button';
 
 
 class MyFavoriteBooks extends React.Component {
@@ -13,8 +16,25 @@ class MyFavoriteBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      showModal: false,
+      // server: process.env.REACT_APP_SERVER
+
     }
+  }
+
+  showModalForm = () => {
+    this.setState({
+      showModal: true
+    });
+    console.log("test show");
+
+  }
+
+  hideModal = () => {
+    this.setState({
+      showModal: false,
+    })
   }
 
   componentDidMount = () => {
@@ -36,30 +56,70 @@ class MyFavoriteBooks extends React.Component {
     }).catch(error => (error));
   }
 
-  render() {
 
+    handleSubmitting = (event) => {
+      event.preventDefault();
+      console.log("test");
+      // const bookName = event.target.bookName.value;
+      // const bookDescription = event.target.bookDescription.value;
+      // const bookStatus = event.target.bookStatus.value;
+      // const { user } = this.props.auth0;
+      // //  console.log(bookName);
+
+      // const bookData = {
+      //   name: event.target.bookName.value,
+      //   description: event.target.bookDescription.value,
+      //   email: user.email,
+      //   status: event.target.bookStatus.value,
+      // };
+
+      // axios
+      // // ${process.env.REACT_APP_SERVER}
+      // //http://localhost:3010/addbook?bookData
+      // .post(`http://localhost:3010/addbook`, bookData)
+      // .then(result => {
+      //   this.setState({
+      //     books: result.data,
+      //   });
+      // })
+      // .catch((err) => {
+      //   console.log("the error is", err);
+      // });
+  };
+
+
+  render() {
     return (
-      <Carousel >
-        {this.state.books &&
-          this.state.books.map((item) => {
-            return (
-              <Carousel.Item interval={1000}>
-                <img
-                  className="d-block w-100"
-                  style={{width:"350px", hight:"500px"}}
-                  src={item.image}
-                  alt="First slide"    
-                />
-                <Carousel.Caption>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            );
-          })}
-      </Carousel>
+      <>
+        <Button onClick={this.showModalForm}>Add Book</Button>
+        <AddBookModal
+          show={this.state.showModal}
+          hideModal={this.hideModal}
+        handleSubmitting={this.handleSubmitting}
+        />
+
+        <Carousel >
+          {this.state.books.length &&
+            this.state.books.map((item) => {
+              return (
+                <Carousel.Item>
+                  <img
+                    className="d-block w-50 imgBook"
+                    style={{ width: "350px", hight: "500px" }}
+                    src={item.image}
+                    alt="First slide"
+                  />
+                  <Carousel.Caption >
+                    <div style={{ fontSize: '18px', backgroundColor: "#333", width: "50%", textAlign: 'center', marginLeft: "34%" }}>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p></div>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              );
+            })}
+        </Carousel>
+      </>
     );
-   
   }
 }
 

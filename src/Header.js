@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import './Header.css';
 
 
-import LogoutButton from './LogoutButton';
-import LoginButton from './LoginButton';
+
+import Logout from './Logout';
 
 
 class Header extends React.Component {
@@ -21,8 +21,7 @@ class Header extends React.Component {
         <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
         {/* TODO: if the user is logged in, render the `LogoutButton` - if the user is logged out, render the `LoginButton` */}
-        <LoginButton />
-        <LogoutButton />
+        <Logout />
 
       </Navbar>
     );

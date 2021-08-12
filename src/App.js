@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 // import IsLoadingAndError from './IsLoadingAndError';
-import LoginButton from './LoginButton';
+// import LoginButton from './Login';
 import BestBooks from './BestBooks'
 import Profile from './Profile';
 import Footer from './Footer';
@@ -12,36 +12,46 @@ import {
 } from "react-router-dom";
 
 import { withAuth0 } from '@auth0/auth0-react';
+// import axios from 'axios';
+import Login from './Login';
 
 
 class App extends React.Component {
-  
-  render() {
-    const {isAuthenticated} = this.props.auth0;
 
-    // console.log('app', this.props);
-  
+  constructor(props){
+    super(props);
+    this.state={
+      show: false,
+    }
+
+  }
+
+ 
+  render() {
+    // const {isAuthenticated} = this.props.auth0;
+
+    //  booksData={this.state.booksData} // showModal={this.showModal} 
     return (
       <>
         <Router>
-          {/* <IsLoadingAndError> */}
           <Header />
           <Switch>
             <Route exact path="/">
               {/* TODO: if the user is logged in, render the `BestBooks` component, if they are not, render the `Login` component */}
-                {isAuthenticated ? <BestBooks /> : <LoginButton />}
-               
-            </Route >
-
+                {(this.props.auth0.isAuthenticated && <BestBooks />)}
+                {!this.props.auth0.isAuthenticated && (<Login />)}
+            
+           </Route >
             <Route exact path="/Profile">
             {/* TODO: add a route with a path of '/profile' that renders a `Profile` component */}
             {/* {isAuthenticated ? <Profile /> : <LoginButton />} */}
-            <Profile />
-            
+            {this.props.auth0.isAuthenticated && ( <Profile />)}
+           
+
+             
             </Route>
           </Switch>
           <Footer />
-          {/* </IsLoadingAndError> */}
         </Router>
       </>
     );
