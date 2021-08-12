@@ -17,23 +17,23 @@ class MyFavoriteBooks extends React.Component {
     super(props);
     this.state = {
       books: [],
-      displayModal:false,
-      server: process.env.REACT_APP_SERVER
+      showModal: false,
+      // server: process.env.REACT_APP_SERVER
 
     }
   }
 
-  showModal=()=>{
+  showModalForm = () => {
     this.setState({
-      displayModal:!this.state.displayModal,
-    })
+      showModal: true
+    });
     console.log("test show");
 
   }
 
-  hideModal=()=>{
+  hideModal = () => {
     this.setState({
-      displayModal:false,
+      showModal: false,
     })
   }
 
@@ -57,69 +57,68 @@ class MyFavoriteBooks extends React.Component {
   }
 
 
-  handleSubmitting = (event) => {
-    event.preventDefault();
-    this.showModal();
-    console.log("test");
-    // const bookName = event.target.bookName.value;
-    // const bookDescription = event.target.bookDescription.value;
-    // const bookStatus = event.target.bookStatus.value;
-    const { user } = this.props.auth0;
-    //  console.log(bookName);
+    handleSubmitting = (event) => {
+      event.preventDefault();
+      console.log("test");
+      // const bookName = event.target.bookName.value;
+      // const bookDescription = event.target.bookDescription.value;
+      // const bookStatus = event.target.bookStatus.value;
+      // const { user } = this.props.auth0;
+      // //  console.log(bookName);
 
-    const bookData = {
-      name: event.target.bookName.value,
-      description: event.target.bookDescription.value,
-      email: user.email,
-      status: event.target.bookStatus.value,
-    };
+      // const bookData = {
+      //   name: event.target.bookName.value,
+      //   description: event.target.bookDescription.value,
+      //   email: user.email,
+      //   status: event.target.bookStatus.value,
+      // };
 
-    axios
-    // ${process.env.REACT_APP_SERVER}
-    //http://localhost:3010/addBook?bookData
-    .post(`${process.env.REACT_APP_SERVER}/addBook`, bookData)
-    .then(result => {
-      this.setState({
-        books: result.data,
-      });
-    })
-    .catch((err) => {
-      console.log("the error is", err);
-    });
-};
-  
+      // axios
+      // // ${process.env.REACT_APP_SERVER}
+      // //http://localhost:3010/addbook?bookData
+      // .post(`http://localhost:3010/addbook`, bookData)
+      // .then(result => {
+      //   this.setState({
+      //     books: result.data,
+      //   });
+      // })
+      // .catch((err) => {
+      //   console.log("the error is", err);
+      // });
+  };
+
 
   render() {
     return (
-<>
-      <Button onClick={()=>this.showModal()}>Add Book</Button>
-      <AddBookModal
-                show={this.state.displayModal}
-                hideModal={this.showModal}
-                handleSubmitting={this.handleSubmitting}
-              />
+      <>
+        <Button onClick={this.showModalForm}>Add Book</Button>
+        <AddBookModal
+          show={this.state.showModal}
+          hideModal={this.hideModal}
+        handleSubmitting={this.handleSubmitting}
+        />
 
-      <Carousel >
-        {this.state.books.length &&
-          this.state.books.map((item) => {
-            return (
-              <Carousel.Item>
-                <img
-                  className="d-block w-50 imgBook"
-                  style={{width:"350px", hight:"500px"}}
-                  src={item.image}
-                  alt="First slide"    
-                />
-                <Carousel.Caption >
-                  <div style={{ fontSize: '18px', backgroundColor: "#333", width: "50%", textAlign: 'center', marginLeft: "34%" }}>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p></div>
-                </Carousel.Caption>
-              </Carousel.Item>
-            );
-          })}
-      </Carousel>
-   </>
+        <Carousel >
+          {this.state.books.length &&
+            this.state.books.map((item) => {
+              return (
+                <Carousel.Item>
+                  <img
+                    className="d-block w-50 imgBook"
+                    style={{ width: "350px", hight: "500px" }}
+                    src={item.image}
+                    alt="First slide"
+                  />
+                  <Carousel.Caption >
+                    <div style={{ fontSize: '18px', backgroundColor: "#333", width: "50%", textAlign: 'center', marginLeft: "34%" }}>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p></div>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              );
+            })}
+        </Carousel>
+      </>
     );
   }
 }
