@@ -58,3 +58,21 @@ Start time: 3 pm
 
 Finish time: 8 pm
 Actual time needed to complete: 5 hours
+
+Name of feature: #3 Add
+
+Estimate of time needed to complete: 5 hours
+
+Start time: 3 pm
+
+Finish time: 8 pm
+Actual time needed to complete: 5 hours
+
+Name of feature: #4 delet
+
+Estimate of time needed to complete: 5 hours
+
+Start time: 3 pm
+
+Finish time: 10 pm
+Actual time needed to complete: 7 hours
