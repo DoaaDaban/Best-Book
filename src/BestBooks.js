@@ -6,9 +6,10 @@ import axios from 'axios';
 import './BestBooks.css';
 
 import { withAuth0 } from '@auth0/auth0-react';
-import Carousel from 'react-bootstrap/Carousel';
+// import Carousel from 'react-bootstrap/Carousel';
 import AddBookModal from './Component/AddBookModal';
 import Button from 'react-bootstrap/Button';
+import BookCard from './Component/BookCard';
 
 
 class MyFavoriteBooks extends React.Component {
@@ -16,7 +17,7 @@ class MyFavoriteBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      booksArr: [],
       showModal: false,
       // server: process.env.REACT_APP_SERVER
 
@@ -47,7 +48,7 @@ class MyFavoriteBooks extends React.Component {
       this.setState({
 
         // books:dataResults.data[0].books
-        books: dataResults.data
+        booksArr: dataResults.data
       });
       // console.log(dataResults.data[0].books[0].title);
       // console.log(dataResults.data[0].books.title);
@@ -57,50 +58,119 @@ class MyFavoriteBooks extends React.Component {
   }
 
 
-    handleSubmitting = (event) => {
-      event.preventDefault();
-      console.log("test");
-      // const bookName = event.target.bookName.value;
-      // const bookDescription = event.target.bookDescription.value;
-      // const bookStatus = event.target.bookStatus.value;
-      // const { user } = this.props.auth0;
-      // //  console.log(bookName);
+  addBook=(e) =>{
+    e.preventDefault();
+    const URL = `http://localhost:3010/addbooks`
+    const title=e.target.bookName.value;
+    const description=e.target.bookDescription.value;
+    // const image=e.target.image.value;
+    const status=e.target.status.value;
+    const  {user} = this.props.auth0;
+    const bookData = {
+  
+  
+      email:user.email,
+      title:title,
+      description:description,
+      // image:image,
+      status:status,
+    }
+  
+  console.log(bookData);
+  axios
+  .post(URL,bookData)
+  .then(data=>{
+    try{
+      this.setState({
+        booksArr:data.data
+      })
+    }catch (e) {
+      <>
+      <h1>ERROR IS HERE </h1>
+      </>
+    }
+  
+    console.log('from best book fun ' ,this.state.booksArr);
+   
+  }).catch((err)=>{
+    console.log(err);
+    alert(err);
+    <h1>error happened</h1>
+  
+  })
+  }
 
-      // const bookData = {
-      //   name: event.target.bookName.value,
-      //   description: event.target.bookDescription.value,
-      //   email: user.email,
-      //   status: event.target.bookStatus.value,
-      // };
+// delete function ----------------------------
+deleteBook=(idx) =>{
+  const  {user} = this.props.auth0;
+  const URL = `http://localhost:3010/deleteBook/${idx}`
+  
+  
+  const deleteData = {
+    
 
-      // axios
-      // // ${process.env.REACT_APP_SERVER}
-      // //http://localhost:3010/addbook?bookData
-      // .post(`http://localhost:3010/addbook`, bookData)
-      // .then(result => {
-      //   this.setState({
-      //     books: result.data,
-      //   });
-      // })
-      // .catch((err) => {
-      //   console.log("the error is", err);
-      // });
-  };
+    email:user.email,
+    
+  }
+
+console.log(deleteData);
+axios
+.delete(URL,deleteData)
+.then(data=>{
+  
+    this.setState({
+      booksArr:data.data
+    })
+  
+
+  console.log('from delete function' ,this.state.booksArr);
+ 
+}).catch((err)=>{
+  console.log(err);
+  alert(err);
+  <h1>error happened</h1>
+
+})
+}
+
+
+  
+  showModal = () =>{
+    this.setState({
+      showModal:true
+    });
+  }
+  hideModal = ()=>{
+    this.setState({
+   showModal:false,
+   updateShow : false
+    });
+  }
+  
 
 
   render() {
     return (
       <>
-        <Button onClick={this.showModalForm}>Add Book</Button>
+        <Button onClick={this.showModal}>Add Book</Button>
         <AddBookModal
           show={this.state.showModal}
           hideModal={this.hideModal}
-        handleSubmitting={this.handleSubmitting}
+        handleSubmitting={this.addBook}
         />
 
-        <Carousel >
-          {this.state.books.length &&
-            this.state.books.map((item) => {
+
+   <BookCard 
+        
+        arr={this.state.booksArr}
+
+        deleteBook = {this.deleteBook}
+        
+        />
+
+        {/* <Carousel >
+          {this.state.booksArr.length &&
+            this.state.booksArr.map((item) => {
               return (
                 <Carousel.Item>
                   <img
@@ -117,8 +187,9 @@ class MyFavoriteBooks extends React.Component {
                 </Carousel.Item>
               );
             })}
-        </Carousel>
+        </Carousel> */}
       </>
+
     );
   }
 }
