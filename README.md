@@ -76,3 +76,12 @@ Start time: 3 pm
 
 Finish time: 10 pm
 Actual time needed to complete: 7 hours
+
+Name of feature: #5 update
+
+Estimate of time needed to complete: 5 hours
+
+Start time: 12 pm
+
+Finish time: 10 pm
+Actual time needed to complete: 10 hours
