@@ -26,6 +26,10 @@ class AddBookModal extends React.Component {
                 <Form.Label>Book Description</Form.Label>
                 <Form.Control type="text" placeholder="Enter Book Description"
                   name='bookDescription' />
+
+               <Form.Label>Book image</Form.Label>
+                <Form.Control type="text" placeholder="Enter Book image"
+                  name='bookImage' />
               </Form.Group>
             </Row>
 
@@ -34,7 +38,7 @@ class AddBookModal extends React.Component {
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Status</Form.Label>
-                <Form.Select aria-label="Default select example">
+                <Form.Select name='bookStatus' aria-label="Default select example">
                   <option>choose...</option>
                   <option value="1">Life Changing</option>
                   <option value="2">Recomended</option>
@@ -49,12 +53,17 @@ class AddBookModal extends React.Component {
 
             </Row>
 
+            <Button type='submit' variant="secondary" >
+              Add Book
+            </Button>
+            
           </Form>
 
           <Modal.Footer>
             <Button variant="secondary" onClick={this.props.hideModal}>
-              Add Book
+              Close
             </Button>
+
 
           </Modal.Footer>
         </Modal>

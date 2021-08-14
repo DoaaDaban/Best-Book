@@ -9,6 +9,7 @@ import { withAuth0 } from '@auth0/auth0-react';
 import Carousel from 'react-bootstrap/Carousel';
 import AddBookModal from './Component/AddBookModal';
 import Button from 'react-bootstrap/Button';
+import UpdateBook from './Component/UpdateBook';
 
 
 class MyFavoriteBooks extends React.Component {
@@ -19,7 +20,6 @@ class MyFavoriteBooks extends React.Component {
       books: [],
       showModal: false,
       // server: process.env.REACT_APP_SERVER
-
     }
   }
 
@@ -63,30 +63,42 @@ class MyFavoriteBooks extends React.Component {
       // const bookName = event.target.bookName.value;
       // const bookDescription = event.target.bookDescription.value;
       // const bookStatus = event.target.bookStatus.value;
-      // const { user } = this.props.auth0;
-      // //  console.log(bookName);
+      const { user } = this.props.auth0;
+     // console.log(bookName);
 
-      // const bookData = {
-      //   name: event.target.bookName.value,
-      //   description: event.target.bookDescription.value,
-      //   email: user.email,
-      //   status: event.target.bookStatus.value,
-      // };
+      const bookData = {
+        email: user.email,
+        title: event.target.bookName.value,
+        description: event.target.bookDescription.value,
+        status: event.target.bookStatus.value,
+        image: event.target.bookImage.value
+      };
 
-      // axios
-      // // ${process.env.REACT_APP_SERVER}
-      // //http://localhost:3010/addbook?bookData
-      // .post(`http://localhost:3010/addbook`, bookData)
-      // .then(result => {
-      //   this.setState({
-      //     books: result.data,
-      //   });
-      // })
-      // .catch((err) => {
-      //   console.log("the error is", err);
-      // });
+      axios
+      // ${process.env.REACT_APP_SERVER}
+      //http://localhost:3010/addbook?bookData
+      .post(`http://localhost:3010/addbook`, bookData)
+      .then(result => {
+        console.log(result)
+        this.setState({
+          books: result.data,
+        });
+      })
+      .catch((err) => {
+        console.log("the error is", err);
+      });
   };
 
+
+  deleteBook =(bookId) =>{
+    axios.delete(`${process.env.REACT_APP_SERVER}/deleteBook/${bookId}`)
+    .then(axiosRes =>{
+      if (axiosRes.data.deletedCount){
+        const tempBookArr = this.state.books.filter(itemBook => itemBook._id !== bookId );
+        this.setState({books: tempBookArr});
+      }
+    }).catch(error => alert (error));
+  }
 
   render() {
     return (
@@ -95,7 +107,7 @@ class MyFavoriteBooks extends React.Component {
         <AddBookModal
           show={this.state.showModal}
           hideModal={this.hideModal}
-        handleSubmitting={this.handleSubmitting}
+          handleSubmitting={this.handleSubmitting}
         />
 
         <Carousel >
@@ -117,6 +129,8 @@ class MyFavoriteBooks extends React.Component {
                 </Carousel.Item>
               );
             })}
+            <Button onClick={()=>{this.deleteBook(book._id)}}>Delete Book</Button>
+            <Button onClick={()=>{this.UpdateBook(books)}}>Update Book</Button>
         </Carousel>
       </>
     );
